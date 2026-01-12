@@ -13,6 +13,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>default</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>CS0612</WarningsNotAsErrors>
     <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
 
@@ -24,6 +25,8 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="*" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="*" />
     <PackageReference Include="DevWinUI" Version="*" />
+    <PackageReference Include="DevWinUI.Controls" Version="*" />
+    <PackageReference Include="WinUIEx" Version="*" />
   </ItemGroup>
 
   <ItemGroup>
