@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
+using Microsoft.Windows.AppLifecycle;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -10,6 +11,8 @@ namespace tld_mod_manager
     /// </summary>
     public partial class App : Application
     {
+        public static MainWindow? MainWindow { get; private set; }
+        
         private Window? _window;
 
         /// <summary>
@@ -29,6 +32,16 @@ namespace tld_mod_manager
         {
             _window = new MainWindow();
             _window.Activate();
+            
+            // Forces the app to be single instanced.
+            // https://johngagefaulkner.github.io/01-Build-a-Single-Instance-WinUI-3-App-2026-Gemini-2.5-Pro.html
+            var activationArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
+            HandleActivation(activationArgs);
+        }
+        
+        public void HandleActivation(AppActivationArguments args)
+        {
+            MainWindow?.Activate();
         }
     }
 }
