@@ -3,7 +3,7 @@ pub mod melonloader {
     use glob::glob;
 
     #[cfg(target_os = "windows")]
-    pub fn get_version(game_dir: PathBuf) -> VersionInfo {
+    pub fn get_version(game_dir: PathBuf) -> String {
         use win32_version_info::VersionInfo;
 
         let melonloader_dir = game_dir.join("MelonLoader");
