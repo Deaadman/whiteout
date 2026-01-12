@@ -1,3 +1,4 @@
+using DevWinUI;
 using Microsoft.UI.Xaml;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -13,6 +14,14 @@ namespace tld_mod_manager
         public MainWindow()
         {
             InitializeComponent();
+            ConfigureTitleBar();
+        }
+
+        private void ConfigureTitleBar()
+        {
+            this.ExtendsContentIntoTitleBar = true;
+            this.SetTitleBar(TitleBar);
+            TitleBar.Title = "ProjectName".GetLocalizedResource();
         }
     }
 }

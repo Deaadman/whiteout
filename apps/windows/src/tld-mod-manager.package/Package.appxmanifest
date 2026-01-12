@@ -9,14 +9,14 @@
 
   <Identity
     Name="157c671c-c24e-4283-a5ab-0c67167a7d06"
-    Publisher="CN=tsand"
+    Publisher="CN=Deadman"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="157c671c-c24e-4283-a5ab-0c67167a7d06" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>tld-mod-manager (Package)</DisplayName>
-    <PublisherDisplayName>tsand</PublisherDisplayName>
+    <DisplayName>tld-mod-manager.package</DisplayName>
+    <PublisherDisplayName>Deadman</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 
@@ -34,8 +34,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="tld-mod-manager (Package)"
-        Description="tld-mod-manager (Package)"
+        DisplayName="tld-mod-manager.package"
+        Description="tld-mod-manager.package"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
