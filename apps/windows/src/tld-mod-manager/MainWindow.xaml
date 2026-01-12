@@ -20,18 +20,44 @@
         </Grid.RowDefinitions>
         
         <TitleBar
-            x:Name="TitleBar"/>
+            x:Name="TitleBar"
+            IsPaneToggleButtonVisible="True"
+            PaneToggleRequested="TitleBar_OnPaneToggleRequested">
+            
+            <TitleBar.RightHeader>
+                <FontIcon Glyph="&#xE946;" />
+            </TitleBar.RightHeader>
+            
+        </TitleBar>
         
         <NavigationView
+            x:Name="NavigationView"
             Grid.Row="1"
             IsBackButtonVisible="Collapsed"
-            IsPaneToggleButtonVisible="False">
+            IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False">
             
             <NavigationView.MenuItems>
-                <NavigationViewItem Icon="Home" Content="Home" />
+                <NavigationViewItem x:Name="Home" Icon="Home" />
+
+                <NavigationViewItem x:Name="Mods">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE74C;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             
-            <Frame x:Name="Frame"></Frame>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem x:Name="Downloads">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEBD3;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem x:Name="Library" Icon="Library" />
+            </NavigationView.FooterMenuItems>
+            
+            <Frame />
         </NavigationView>
     </Grid>
 </Window>
