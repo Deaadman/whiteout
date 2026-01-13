@@ -1,10 +1,10 @@
 [package]
-name = "tld-mod-manager-cli"
+name = "cli"
 version = "0.1.0"
 edition = "2024"
 authors = ["Deadman"]
 
 [dependencies]
-clap = { version = "4.5.53", features = ["derive"] }
-tld-mod-manager-core = { path = "../../core" }
-tokio = { version = "1.48.0", features = ["macros", "rt-multi-thread"] }
+clap = { version = "4.5.54", features = ["derive"] }
+muskeg = { path = "../../core/muskeg" }
+tokio = { version = "1.49.0", features = ["macros", "rt-multi-thread"] }

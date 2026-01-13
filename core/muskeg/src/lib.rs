@@ -1,9 +1,10 @@
 pub mod game_launchers;
 pub mod melonloader;
+mod models;
 
 pub async fn test() -> Result<(), reqwest::Error> {
 
-    let res = reqwest::get("https://tldmods.com/api.json?details=").await?;
+    let res = reqwest::get("https://tldmods.com/api.php?details&pp").await?;
 
     // eprintln!("Response: {:?} {}", res.version(), res.status());
     // eprintln!("Headers: {:#?}\n", res.headers());
@@ -11,9 +12,9 @@ pub async fn test() -> Result<(), reqwest::Error> {
     let body = res.text().await?;
     // println!("{body}");
 
-    let json: Vec<Mod> = serde_json::from_str(&body).expect("Something went wrong.");
+    let json: Vec<models::r#mod::Mod> = serde_json::from_str(&body).expect("Something went wrong.");
     for i in json {
-        println!("{} - {}", i.name, i.version);
+        println!("{} - {}", i.display_name, i.version);
     }
 
     Ok(())

@@ -1,6 +1,6 @@
 use clap::Parser;
 use std::path::PathBuf;
-use tld_mod_manager_core::{game_launchers::*, melonloader::*, test};
+use muskeg::{game_launchers::*, melonloader::*, test};
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
