@@ -23,9 +23,8 @@ pub mod steam {
             #[cfg(target_arch = "x86")]
             let key = hklm.open_subkey("SOFTWARE\\Valve\\Steam")?;
 
-            let steam_path: String = key.get_value("InstallPath")?;
-
-            Ok(PathBuf::from(steam_path))
+            let steam_path: PathBuf = key.get_value("InstallPath")?;
+            Ok(steam_path)
         }
     }
 
@@ -97,7 +96,7 @@ pub mod steam {
         }
 
         let deserialized: LibraryFolders = from_vdf(vdf)?;
-        return Ok(deserialized.libraries);
+        Ok(deserialized.libraries)
     }
 
     pub fn read_games(
@@ -145,6 +144,6 @@ pub mod steam {
             app_dir = steam_apps_dir.join(install_dir);
         }
 
-        return app_dir;
+        app_dir
     }
 }
