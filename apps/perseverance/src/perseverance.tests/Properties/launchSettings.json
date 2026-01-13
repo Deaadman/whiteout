@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "perseverance.tests (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "perseverance.tests (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

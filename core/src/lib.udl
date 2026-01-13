@@ -1,3 +1,0 @@
-namespace tld-mod-manager-core {
-        string is_installed();
-};

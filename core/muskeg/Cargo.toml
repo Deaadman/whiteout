@@ -1,0 +1,25 @@
+[package]
+name = "muskeg"
+version = "0.1.0"
+edition = "2024"
+authors = ["Deadman"]
+
+[lib]
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+uniffi_build = "0.30.0"
+uniffi_bindgen = "0.30.0"
+
+[dependencies]
+glob = "0.3.3"
+keyvalues-parser = "0.2.3"
+keyvalues-serde = "0.2.3"
+reqwest = "0.13.1"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+uniffi = { version = "0.30.0", features = ["build"] }
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.55"
+win32-version-info = "0.3.0"
