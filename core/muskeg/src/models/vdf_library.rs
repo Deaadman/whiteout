@@ -4,23 +4,23 @@ use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 #[allow(dead_code)]
-struct LibraryFolders {
-    libraries: Vec<Library>,
+pub struct LibraryFolders {
+    pub libraries: Vec<Library>,
 }
 
 #[derive(Deserialize, Debug)]
 #[allow(dead_code)]
-struct Library {
-    path: PathBuf,
-    apps: HashMap<u64, u64>,
+pub struct Library {
+    pub path: PathBuf,
+    pub apps: HashMap<u64, u64>,
 }
 
 #[derive(Deserialize, Debug, Hash, Eq)]
 #[allow(dead_code)]
-struct AppState {
-    appid: u64,
+pub struct AppState {
+    pub appid: u64,
     name: String,
-    installdir: String,
+    pub installdir: String,
 }
 
 impl PartialEq for AppState {

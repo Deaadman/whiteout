@@ -49,7 +49,9 @@ mod library {
     use std::path::{Path, PathBuf};
     use keyvalues_parser::Vdf;
     use keyvalues_serde::from_vdf;
-    use crate::models::vdf_library;
+    use crate::models::vdf_library::Library;
+    use crate::models::vdf_library::LibraryFolders;
+    use crate::models::vdf_library::AppState;
 
     fn read_libraries(steam_dir: PathBuf) -> keyvalues_serde::Result<Vec<Library>> {
         let library_folders_dir = Path::new("config/libraryfolders.vdf");
