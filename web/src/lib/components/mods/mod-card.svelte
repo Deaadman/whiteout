@@ -8,34 +8,41 @@
     import * as Tooltip from "$lib/components/ui/tooltip/index.js";
     import { buttonVariants } from "$lib/components/ui/button/index.js";
     import {Button} from "$lib/components/ui/button";
+    import {AspectRatio} from "$lib/components/ui/aspect-ratio/index.ts";
+
+    let { mod } = $props();
 </script>
 
 <Card.Root>
     <Card.Header>
-        <img src="https://raw.githubusercontent.com/Deaadman/AdaptiveArsenal/release/Images/Thumbnail.webp" alt="Test"/>
+        <AspectRatio ratio={16 / 9}>
+            <img src="{mod.Images[0]}" alt="{mod.DisplayName}" class="w-full h-full" />
+        </AspectRatio>
         <div class="grid grid-flow-col grid-cols-2">
             <div class="mt-2">
-                <Card.Title>Adaptive Arsenal</Card.Title>
-                <Card.Description>by <a class="underline" href="https://github.com/Deaadman">Deadman</a></Card.Description>
+                <Card.Title>{mod.DisplayName}</Card.Title>
+                <Card.Description>by <a class="underline" href="{mod.AuthorUrl}">{mod.Author}</a></Card.Description>
             </div>
             <div class="mt-2 justify-self-end text-end">
-                <Card.Title>v1.0.9</Card.Title>
-                <Card.Description>TLD v2.51 / ML v0.7.2</Card.Description>
+                <Card.Title>v{mod.Version}</Card.Title>
+                <Card.Description>TLD v{mod.TestedOn.tld} / ML v{mod.TestedOn.ml}</Card.Description>
             </div>
         </div>
     </Card.Header>
     <Card.Content>
-        <Card.Description>Adaptive Arsenal is a modification that improves upon existing weapon mechanics within The Long Dark.</Card.Description>
+        <Card.Description>{mod.Description}</Card.Description>
     </Card.Content>
     <Card.Footer>
         <div class="grid grid-flow-col grid-rows-3 w-full">
             <div class="col-start-1 content-center">
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" href={mod.Download}>
                     <DownloadIcon />
                 </Button>
-                <Button variant="outline" size="icon">
-                    <HeartIcon />
-                </Button>
+                {#if mod.SupportUrl}
+                    <Button variant="outline" size="icon" href={mod.SupportUrl}>
+                        <HeartIcon />
+                    </Button>
+                {/if}
             </div>
             <div class="col-start-2 content-center justify-self-end">
                 <Tooltip.Root>
@@ -46,20 +53,24 @@
                         </Badge>
                     </Tooltip.Trigger>
                     <Tooltip.Content>
-                        <p>17 January 2026, at 19:32</p>
+                        <p>{mod.Updated}</p>
+<!--                        <p>17 January 2026, at 19:32</p>-->
                     </Tooltip.Content>
                 </Tooltip.Root>
             </div>
-            <div class="col-span-2 mt-2">
-                <p>Dependencies</p>
-                <Badge>ComplexLogger</Badge>
-                <Badge>ModData</Badge>
-                <Badge>ModComponent</Badge>
-            </div>
+            {#if mod.Dependencies.length > 0}
+                <div class="col-span-2 mt-2">
+                    <p>Dependencies</p>
+                    {#each mod.Dependencies as dependency}
+                        <Badge>{dependency}</Badge>
+                    {/each}
+                </div>
+            {/if}
             <div class="col-span-2 mt-2">
                 <p>Categories</p>
-                <Badge>Gameplay</Badge>
-                <Badge>Overhaul</Badge>
+                {#each mod.Categories as category}
+                    <Badge>{category}</Badge>
+                {/each}
             </div>
         </div>
     </Card.Footer>
