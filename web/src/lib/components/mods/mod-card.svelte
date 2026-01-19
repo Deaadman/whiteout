@@ -4,6 +4,7 @@
     import DownloadIcon from "@lucide/svelte/icons/download"
     import StarIcon from "@lucide/svelte/icons/star"
     import HeartIcon from "@lucide/svelte/icons/heart"
+    import GitHubIcon from "@lucide/svelte/icons/github"
     import RefreshCCWIcon from "@lucide/svelte/icons/refresh-ccw"
     import * as Tooltip from "$lib/components/ui/tooltip/index.js";
     import { buttonVariants } from "$lib/components/ui/button/index.js";
@@ -34,12 +35,17 @@
             </div>
         </div>
     </Card.Header>
-    <Card.Content>
-        <Card.Description>{mod.Description}</Card.Description>
+    <Card.Content class="h-10 overflow-auto">
+        <Card.Description>
+            {mod.Description}
+        </Card.Description>
     </Card.Content>
     <Card.Footer>
         <div class="grid grid-flow-col grid-rows-3 w-full">
             <div class="col-start-1 content-center">
+                <Button variant="outline" size="icon" href={mod.ModUrl} target="_blank">
+                    <GitHubIcon />
+                </Button>
                 <Button variant="outline" size="icon" href={mod.Download} target="_blank">
                     <DownloadIcon />
                 </Button>
