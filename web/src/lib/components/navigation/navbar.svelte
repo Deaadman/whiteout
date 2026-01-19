@@ -10,16 +10,13 @@
     <Card.Root class="py-4">
         <Card.Content>
             <div class="grid grid-flow-col grid-cols-3 gap-4 items-center">
-                <div class="justify-self-start">
+                <div class="col-span-2 justify-self-start">
                     <a class="flex items-center" href="/">
                         <img src="src/lib/assets/favicon.svg" alt="The Long Dark Modding Logo" height="38" width="38"/>
-                        <h3 class="ms-4 scroll-m-20 text-2xl font-semibold tracking-tight">The Long Dark Modding</h3>
+                        <h3 class="ms-4 scroll-m-20 text-2xl font-semibold tracking-tight max-sm:hidden">The Long Dark Modding</h3>
                     </a>
                 </div>
-                <div class="justify-self-center">
-                    <!--            <p>Hello</p>-->
-                </div>
-                <div class="justify-self-end">
+                <div class="flex gap-1 justify-self-end">
                     <Button variant="outline" size="icon" href="https://discord.gg/EhBWKRx" target="_blank">
                         <SiDiscord />
                     </Button>

@@ -45,52 +45,56 @@
                 <Tabs.Trigger value="plugins">Plugins</Tabs.Trigger>
             </Tabs.List>
             <div class="flex gap-2 justify-self-end">
-                <Select.Root type="multiple">
-                    <Select.Trigger class="w-45">Categories</Select.Trigger>
-                    <Select.Content>
-                        <Select.Item value="audio">Audio</Select.Item>
-                        <Select.Item value="base-building">Base Building</Select.Item>
-                        <Select.Item value="cheats">Cheats</Select.Item>
-                        <Select.Item value="clothing">Clothing</Select.Item>
-                        <Select.Item value="food">Food</Select.Item>
-                        <Select.Item value="gameplay">Gameplay</Select.Item>
-                        <Select.Item value="gear-items">Gear Items</Select.Item>
-                        <Select.Item value="graphics">Graphics</Select.Item>
-                        <Select.Item value="misc">Misc</Select.Item>
-                        <Select.Item value="overhaul">Overhaul</Select.Item>
-                        <Select.Item value="quality-of-life">Quality of Life</Select.Item>
-                        <Select.Item value="utility">Utility</Select.Item>
-                    </Select.Content>
-                </Select.Root>
-                <Select.Root type="single" value="alphabetical">
-                    <Select.Trigger class="w-45">Sort by</Select.Trigger>
-                    <Select.Content>
-                        <Select.Item value="alphabetical">Alphabetical</Select.Item>
-                        <Select.Item value="updated">Date Updated</Select.Item>
-                        <Select.Item value="stars">Stars</Select.Item>
-                        <Select.Item value="downloads">Downloads</Select.Item>
-                    </Select.Content>
-                </Select.Root>
+                <span class="max-lg:hidden inline-flex gap-2">
+                    <Select.Root type="multiple">
+                        <Select.Trigger class="w-45">Categories</Select.Trigger>
+                        <Select.Content>
+                            <Select.Item value="audio">Audio</Select.Item>
+                            <Select.Item value="base-building">Base Building</Select.Item>
+                            <Select.Item value="cheats">Cheats</Select.Item>
+                            <Select.Item value="clothing">Clothing</Select.Item>
+                            <Select.Item value="food">Food</Select.Item>
+                            <Select.Item value="gameplay">Gameplay</Select.Item>
+                            <Select.Item value="gear-items">Gear Items</Select.Item>
+                            <Select.Item value="graphics">Graphics</Select.Item>
+                            <Select.Item value="misc">Misc</Select.Item>
+                            <Select.Item value="overhaul">Overhaul</Select.Item>
+                            <Select.Item value="quality-of-life">Quality of Life</Select.Item>
+                            <Select.Item value="utility">Utility</Select.Item>
+                        </Select.Content>
+                    </Select.Root>
+                    <Select.Root type="single" value="alphabetical">
+                        <Select.Trigger class="w-45">Sort by</Select.Trigger>
+                        <Select.Content>
+                            <Select.Item value="alphabetical">Alphabetical</Select.Item>
+                            <Select.Item value="updated">Date Updated</Select.Item>
+                            <Select.Item value="stars">Stars</Select.Item>
+                            <Select.Item value="downloads">Downloads</Select.Item>
+                        </Select.Content>
+                    </Select.Root>
+                </span>
                 <InputGroup>
                     <InputGroupInput placeholder="Search..." />
                     <InputGroupAddon>
                         <SearchIcon />
                     </InputGroupAddon>
-                    <InputGroupAddon align="inline-end">{modCount} results</InputGroupAddon>
+                    <InputGroupAddon class="max-sm:hidden" align="inline-end">
+                        {modCount} results
+                    </InputGroupAddon>
                 </InputGroup>
             </div>
         </div>
-        <Tabs.Content value="all" class="grid grid-cols-3 gap-4">
+        <Tabs.Content value="all" class="grid grid-cols-5 max-[1920px]:grid-cols-4 max-2xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-4">
             {#each _mods as mod}
                 <ModCard mod="{mod}" />
             {/each}
         </Tabs.Content>
-        <Tabs.Content value="mods" class="grid grid-cols-3 gap-4">
+        <Tabs.Content value="mods" class="grid grid-cols-3 max-sm:grid-cols-1 gap-4">
             {#each _modsOnly as mod}
                 <ModCard mod="{mod}" />
             {/each}
         </Tabs.Content>
-        <Tabs.Content value="plugins" class="grid grid-cols-3 gap-4">
+        <Tabs.Content value="plugins" class="grid grid-cols-3 max-sm:grid-cols-1 gap-4">
             {#each _pluginsOnly as mod}
                 <ModCard mod="{mod}" />
             {/each}
