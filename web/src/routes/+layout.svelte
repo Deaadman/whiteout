@@ -10,4 +10,6 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 <ModeWatcher />
 <Navbar />
-{@render children()}
+<div class="p-4">
+    {@render children()}
+</div>
