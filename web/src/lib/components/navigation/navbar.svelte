@@ -12,7 +12,7 @@
             <div class="grid grid-flow-col grid-cols-3 gap-4 items-center">
                 <div class="col-span-2 justify-self-start">
                     <a class="flex items-center" href="/">
-                        <img src="src/lib/assets/favicon.svg" alt="The Long Dark Modding Logo" height="38" width="38"/>
+                        <img class="invert dark:invert-0" src="src/lib/assets/favicon.svg" alt="The Long Dark Modding Logo" height="38" width="38"/>
                         <h3 class="ms-4 scroll-m-20 text-2xl font-semibold tracking-tight max-sm:hidden">The Long Dark Modding</h3>
                     </a>
                 </div>

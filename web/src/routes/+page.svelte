@@ -16,10 +16,13 @@
         _modsOnly,
         _pluginsOnly
     } from "./+page";
+    import type { FormEventHandler } from "svelte/elements";
+    import type {SvelteComponent} from "svelte";
 
     let modCount: Number = _mods.length;
+    let refs: SvelteComponent[] = [];
 
-    export const tabsOnChange = (value: string) => {
+    const tabsOnChange = (value: string) => {
         switch (value) {
             case "all":
                 modCount = _mods.length;
@@ -33,6 +36,23 @@
             default:
                 modCount = _mods.length;
         }
+    }
+
+    function searchOnChange(event: FormEventHandler<HTMLInputElement>) {
+        const searchValue = event.srcElement.value.toUpperCase();
+        console.log(searchValue);
+
+        let i;
+        for (i = 0; i < _mods.length; i++) {
+            if (_mods[i].DisplayName.toUpperCase().indexOf(searchValue) > -1) {
+                // console.log(refs[i]);
+                // refs[i].style.display = "";
+            } else {
+                // refs[i].style.display = "none";
+            }
+        }
+
+        modCount = refs.length;
     }
 </script>
 
@@ -74,7 +94,7 @@
                     </Select.Root>
                 </span>
                 <InputGroup>
-                    <InputGroupInput placeholder="Search..." />
+                    <InputGroupInput oninput={searchOnChange} placeholder="Search..." />
                     <InputGroupAddon>
                         <SearchIcon />
                     </InputGroupAddon>
@@ -85,8 +105,8 @@
             </div>
         </div>
         <Tabs.Content value="all" class="grid grid-cols-5 max-[1920px]:grid-cols-4 max-2xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-4">
-            {#each _mods as mod}
-                <ModCard mod="{mod}" />
+            {#each _mods as mod, i}
+                <ModCard bind:this={refs[i]} mod="{mod}" />
             {/each}
         </Tabs.Content>
         <Tabs.Content value="mods" class="grid grid-cols-3 max-sm:grid-cols-1 gap-4">
