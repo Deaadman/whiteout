@@ -8,6 +8,7 @@
         InputGroupAddon,
         InputGroupInput,
     } from "$lib/components/ui/input-group"
+    import ModCard from "$lib/components/mods/mod-card.svelte";
 </script>
 
 <div class="grid grid-cols-2">
@@ -18,7 +19,7 @@
                 <Tabs.Trigger value="plugins">Plugins</Tabs.Trigger>
             </Tabs.List>
             <Tabs.Content value="mods">
-                Make changes to your account here.
+                <ModCard/>
             </Tabs.Content>
             <Tabs.Content value="plugins">Change your password here.</Tabs.Content>
         </Tabs.Root>
