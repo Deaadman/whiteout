@@ -11,7 +11,7 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 <ModeWatcher />
 <Navbar />
-<div class="p-4">
+<div class="p-4 py-2">
     <Tooltip.Provider>
         {@render children()}
     </Tooltip.Provider>

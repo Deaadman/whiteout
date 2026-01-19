@@ -8,7 +8,7 @@
     import * as Tooltip from "$lib/components/ui/tooltip/index.js";
     import { buttonVariants } from "$lib/components/ui/button/index.js";
     import {Button} from "$lib/components/ui/button";
-    import {AspectRatio} from "$lib/components/ui/aspect-ratio/index.ts";
+    import {AspectRatio} from "$lib/components/ui/aspect-ratio/index.js";
 
     let { mod } = $props();
 </script>
@@ -16,12 +16,17 @@
 <Card.Root>
     <Card.Header>
         <AspectRatio ratio={16 / 9}>
-            <img src="{mod.Images[0]}" alt="{mod.DisplayName}" class="w-full h-full" />
+            {#if mod.Images[0]}
+                <img src="{mod.Images[0]}" alt="{mod.DisplayName}" class="w-full h-full" />
+            {:else}
+                <img src="src/lib/assets/unavailable-dark.png" alt="{mod.DisplayName}" class="w-full h-full hidden dark:block" />
+                <img src="src/lib/assets/unavailable-light.png" alt="{mod.DisplayName}" class="w-full h-full block dark:hidden" />
+            {/if}
         </AspectRatio>
         <div class="grid grid-flow-col grid-cols-2">
             <div class="mt-2">
                 <Card.Title>{mod.DisplayName}</Card.Title>
-                <Card.Description>by <a class="underline" href="{mod.AuthorUrl}">{mod.Author}</a></Card.Description>
+                <Card.Description>by <a class="underline" href="{mod.AuthorUrl}" target="_blank">{mod.Author}</a></Card.Description>
             </div>
             <div class="mt-2 justify-self-end text-end">
                 <Card.Title>v{mod.Version}</Card.Title>
@@ -35,11 +40,11 @@
     <Card.Footer>
         <div class="grid grid-flow-col grid-rows-3 w-full">
             <div class="col-start-1 content-center">
-                <Button variant="outline" size="icon" href={mod.Download}>
+                <Button variant="outline" size="icon" href={mod.Download} target="_blank">
                     <DownloadIcon />
                 </Button>
                 {#if mod.SupportUrl}
-                    <Button variant="outline" size="icon" href={mod.SupportUrl}>
+                    <Button variant="outline" size="icon" href={mod.SupportUrl} target="_blank">
                         <HeartIcon />
                     </Button>
                 {/if}
@@ -62,16 +67,18 @@
                 <div class="col-span-2 mt-2">
                     <p>Dependencies</p>
                     {#each mod.Dependencies as dependency}
-                        <Badge>{dependency}</Badge>
+                        <Badge class="me-1">{dependency}</Badge>
                     {/each}
                 </div>
             {/if}
-            <div class="col-span-2 mt-2">
-                <p>Categories</p>
-                {#each mod.Categories as category}
-                    <Badge>{category}</Badge>
-                {/each}
-            </div>
+            {#if mod.Categories.length > 0}
+                <div class="col-span-2 mt-2">
+                    <p>Categories</p>
+                    {#each mod.Categories as category}
+                        <Badge class="me-1">{category}</Badge>
+                    {/each}
+                </div>
+            {/if}
         </div>
     </Card.Footer>
 </Card.Root>

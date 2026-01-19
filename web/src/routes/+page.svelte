@@ -11,13 +11,36 @@
         InputGroupInput,
     } from "$lib/components/ui/input-group"
 
-    export let data;
+    import {
+        _mods,
+        _modsOnly,
+        _pluginsOnly
+    } from "./+page";
+
+    let modCount: Number = _mods.length;
+
+    export const tabsOnChange = (value: string) => {
+        switch (value) {
+            case "all":
+                modCount = _mods.length;
+                break;
+            case "mods":
+                modCount = _modsOnly.length;
+                break;
+            case "plugins":
+                modCount = _pluginsOnly.length;
+                break;
+            default:
+                modCount = _mods.length;
+        }
+    }
 </script>
 
 <div>
-    <Tabs.Root value="mods">
+    <Tabs.Root value="all" onValueChange={tabsOnChange}>
         <div class="grid grid-flow-col">
             <Tabs.List>
+                <Tabs.Trigger value="all">All</Tabs.Trigger>
                 <Tabs.Trigger value="mods">Mods</Tabs.Trigger>
                 <Tabs.Trigger value="plugins">Plugins</Tabs.Trigger>
             </Tabs.List>
@@ -53,16 +76,24 @@
                     <InputGroupAddon>
                         <SearchIcon />
                     </InputGroupAddon>
-                    <InputGroupAddon align="inline-end">{data.mods.length} results</InputGroupAddon>
+                    <InputGroupAddon align="inline-end">{modCount} results</InputGroupAddon>
                 </InputGroup>
             </div>
         </div>
-        <Tabs.Content value="mods" class="grid grid-cols-3 gap-4">
-            {#each data.mods as mod}
+        <Tabs.Content value="all" class="grid grid-cols-3 gap-4">
+            {#each _mods as mod}
                 <ModCard mod="{mod}" />
             {/each}
         </Tabs.Content>
-        <Tabs.Content value="plugins">
-            Change your password here.</Tabs.Content>
+        <Tabs.Content value="mods" class="grid grid-cols-3 gap-4">
+            {#each _modsOnly as mod}
+                <ModCard mod="{mod}" />
+            {/each}
+        </Tabs.Content>
+        <Tabs.Content value="plugins" class="grid grid-cols-3 gap-4">
+            {#each _pluginsOnly as mod}
+                <ModCard mod="{mod}" />
+            {/each}
+        </Tabs.Content>
     </Tabs.Root>
 </div>
