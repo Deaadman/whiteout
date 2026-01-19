@@ -58,47 +58,45 @@
 
 <div>
     <Tabs.Root value="all" onValueChange={tabsOnChange}>
-        <div class="grid grid-flow-col">
+        <div class="grid grid-flow-col max-md:items-end">
             <Tabs.List>
                 <Tabs.Trigger value="all">All</Tabs.Trigger>
                 <Tabs.Trigger value="mods">Mods</Tabs.Trigger>
                 <Tabs.Trigger value="plugins">Plugins</Tabs.Trigger>
             </Tabs.List>
-            <div class="flex gap-2 justify-self-end">
-                <span class="max-lg:hidden inline-flex gap-2">
-                    <Select.Root type="multiple">
-                        <Select.Trigger class="w-45">Categories</Select.Trigger>
-                        <Select.Content>
-                            <Select.Item value="audio">Audio</Select.Item>
-                            <Select.Item value="base-building">Base Building</Select.Item>
-                            <Select.Item value="cheats">Cheats</Select.Item>
-                            <Select.Item value="clothing">Clothing</Select.Item>
-                            <Select.Item value="food">Food</Select.Item>
-                            <Select.Item value="gameplay">Gameplay</Select.Item>
-                            <Select.Item value="gear-items">Gear Items</Select.Item>
-                            <Select.Item value="graphics">Graphics</Select.Item>
-                            <Select.Item value="misc">Misc</Select.Item>
-                            <Select.Item value="overhaul">Overhaul</Select.Item>
-                            <Select.Item value="quality-of-life">Quality of Life</Select.Item>
-                            <Select.Item value="utility">Utility</Select.Item>
-                        </Select.Content>
-                    </Select.Root>
-                    <Select.Root type="single" value="alphabetical">
-                        <Select.Trigger class="w-45">Sort by</Select.Trigger>
-                        <Select.Content>
-                            <Select.Item value="alphabetical">Alphabetical</Select.Item>
-                            <Select.Item value="updated">Date Updated</Select.Item>
-                            <Select.Item value="stars">Stars</Select.Item>
-                            <Select.Item value="downloads">Downloads</Select.Item>
-                        </Select.Content>
-                    </Select.Root>
-                </span>
-                <InputGroup>
+            <div class="max-md:grid flex gap-2 justify-self-end">
+                <Select.Root type="multiple">
+                    <Select.Trigger class="min-w-45">Categories</Select.Trigger>
+                    <Select.Content>
+                        <Select.Item value="audio">Audio</Select.Item>
+                        <Select.Item value="base-building">Base Building</Select.Item>
+                        <Select.Item value="cheats">Cheats</Select.Item>
+                        <Select.Item value="clothing">Clothing</Select.Item>
+                        <Select.Item value="food">Food</Select.Item>
+                        <Select.Item value="gameplay">Gameplay</Select.Item>
+                        <Select.Item value="gear-items">Gear Items</Select.Item>
+                        <Select.Item value="graphics">Graphics</Select.Item>
+                        <Select.Item value="misc">Misc</Select.Item>
+                        <Select.Item value="overhaul">Overhaul</Select.Item>
+                        <Select.Item value="quality-of-life">Quality of Life</Select.Item>
+                        <Select.Item value="utility">Utility</Select.Item>
+                    </Select.Content>
+                </Select.Root>
+                <Select.Root type="single" value="alphabetical">
+                    <Select.Trigger class="min-w-45">Sort by</Select.Trigger>
+                    <Select.Content>
+                        <Select.Item value="alphabetical">Alphabetical</Select.Item>
+                        <Select.Item value="updated">Date Updated</Select.Item>
+                        <Select.Item value="stars">Stars</Select.Item>
+                        <Select.Item value="downloads">Downloads</Select.Item>
+                    </Select.Content>
+                </Select.Root>
+                <InputGroup class="max-lg:w-45">
                     <InputGroupInput oninput={searchOnChange} placeholder="Search..." />
                     <InputGroupAddon>
                         <SearchIcon />
                     </InputGroupAddon>
-                    <InputGroupAddon class="max-sm:hidden" align="inline-end">
+                    <InputGroupAddon class="max-lg:hidden" align="inline-end">
                         {modCount} results
                     </InputGroupAddon>
                 </InputGroup>
