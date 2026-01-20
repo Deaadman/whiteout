@@ -89,8 +89,7 @@
                 {#if mod.Images[0]}
                     <img src="{mod.Images[0]}" alt="{mod.DisplayName}" class="w-full h-full" />
                 {:else}
-                    <img src="src/lib/assets/unavailable-dark.png" alt="{mod.DisplayName}" class="w-full h-full hidden dark:block" />
-                    <img src="src/lib/assets/unavailable-light.png" alt="{mod.DisplayName}" class="w-full h-full block dark:hidden" />
+                    <img class="invert dark:invert-0 w-full h-full" src="src/lib/assets/sad-axe.svg" alt="{mod.DisplayName}" />
                 {/if}
             </AspectRatio>
             <div class="grid grid-flow-col grid-cols-2">

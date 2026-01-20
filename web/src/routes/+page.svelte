@@ -104,8 +104,6 @@
                     <Select.Content>
                         <Select.Item value="alphabetical">Alphabetical</Select.Item>
                         <Select.Item value="updated">Date Updated</Select.Item>
-                        <Select.Item value="stars">Stars</Select.Item>
-                        <Select.Item value="downloads">Downloads</Select.Item>
                     </Select.Content>
                 </Select.Root>
                 <InputGroup class="max-lg:w-45">

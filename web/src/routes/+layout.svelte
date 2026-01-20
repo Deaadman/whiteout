@@ -8,7 +8,10 @@
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+    <title>The Long Dark Modding</title>
+    <link rel="icon" href={favicon} />
+</svelte:head>
 <ModeWatcher />
 <Navbar />
 <div class="p-4 py-2">
