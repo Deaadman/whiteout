@@ -4,22 +4,16 @@
     import * as Select from "$lib/components/ui/select/index.js";
     import SearchIcon from "@lucide/svelte/icons/search"
     import ModCard from "$lib/components/mods/mod-card.svelte";
-    import type { FormEventHandler } from "svelte/elements";
+    import type {FormEventHandler} from "svelte/elements";
     import type {SvelteComponent} from "svelte";
+    import {onMount} from 'svelte';
 
-    import {
-        InputGroup,
-        InputGroupAddon,
-        InputGroupInput,
-    } from "$lib/components/ui/input-group"
+    import {InputGroup, InputGroupAddon, InputGroupInput,} from "$lib/components/ui/input-group"
 
-    import {
-        _mods
-    } from "./+page";
+    import {_mods} from "./+page";
 
     let modCount = _mods.length;
     let refs: SvelteComponent[] = [];
-    const url = new URL(window.location.href);
 
     const tabsOnChange = (value: string) => {
         switch (value) {
@@ -32,16 +26,17 @@
     }
 
     function searchOnChange(event: FormEventHandler<HTMLInputElement>) {
-        const searchValue = event.srcElement.value;
-        console.log(searchValue);
+        updateSearch(event.srcElement.value)
+    }
 
-
-        url.searchParams.set("q", searchValue);
+    function updateSearch(value: string) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("q", value);
         history.pushState(null, ``, url);
 
         let i;
         for (i = 0; i < _mods.length; i++) {
-            if (_mods[i].DisplayName.toUpperCase().indexOf(searchValue.toUpperCase()) > -1) {
+            if (_mods[i].DisplayName.toUpperCase().indexOf(value.toUpperCase()) > -1) {
                 refs[i].show();
             } else {
                 refs[i].hide();
@@ -58,8 +53,16 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", (event) => {
-        console.log(url.searchParams.get("q"));
+    onMount(() => {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput === null) {
+            return;
+        }
+
+        const url = new URL(window.location.href);
+        const query = url.searchParams.get("q") || ``;
+        searchInput.value = query;
+        updateSearch(query);
     });
 </script>
 
@@ -99,7 +102,7 @@
                     </Select.Content>
                 </Select.Root>
                 <InputGroup class="max-lg:w-45">
-                    <InputGroupInput oninput={searchOnChange} placeholder="Search..." />
+                    <InputGroupInput id="searchInput" oninput={searchOnChange} placeholder="Search..." />
                     <InputGroupAddon>
                         <SearchIcon />
                     </InputGroupAddon>
