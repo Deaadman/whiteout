@@ -5,9 +5,7 @@
     import CircleQuestionMark from "@lucide/svelte/icons/circle-question-mark";
     import SiDiscord from "@icons-pack/svelte-simple-icons/icons/SiDiscord";
     import {Badge} from "$lib/components/ui/badge/index.js";
-</script>
-
-<script lang="ts" module>
+    import {onMount} from "svelte";
 
     interface SiteData {
         currentVersion: String,
@@ -21,8 +19,16 @@
         overrides: String[]
     }
 
-    const response = await fetch("https://raw.githubusercontent.com/TLD-Mods/ModLists/master/SiteData.json");
-    const json: SiteData = await response.json()
+    let json: SiteData | null = null;
+
+    async function querySiteData() {
+        const response = await fetch("https://raw.githubusercontent.com/TLD-Mods/ModLists/master/SiteData.json");
+        json = await response.json()
+    }
+
+    onMount(() => {
+        querySiteData();
+    });
 </script>
 
 <div class="p-4 py-2">
@@ -39,20 +45,20 @@
                     <Button variant="outline" href="https://discord.gg/EhBWKRx" target="_blank">
                         <SiDiscord /> Discord
                     </Button>
-                    <Button variant="outline">
+                    <Button variant="outline" href="/help">
                         <CircleQuestionMark /> Help
                     </Button>
                     <ThemeSwitcher/>
                 </div>
                 <div class="grid gap-1 justify-items-end justify-self-end max-sm:hidden">
                     <Badge>
-                        The Long Dark Version: {json.currentVersion}
+                        The Long Dark Version: {json?.currentVersion}
                     </Badge>
                     <Badge class="bg-yellow-500 text-white dark:bg-yellow-600">
-                        Latest Mod-Breaking: {json.latestGameBreaking}
+                        Latest Mod-Breaking: {json?.latestGameBreaking}
                     </Badge>
                     <Badge>
-                        MelonLoader Version: {json.melonloaderVersion}
+                        MelonLoader Version: {json?.melonloaderVersion}
                     </Badge>
                 </div>
             </div>

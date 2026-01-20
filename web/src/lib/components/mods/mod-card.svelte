@@ -53,7 +53,7 @@
 
     function dateDifferenceClass() : String {
         if (diffYears >= 1) {
-            return `bg-red-500 text-white dark:bg-red-600`
+            return `bg-red-400 text-white dark:bg-red-500`
         }
 
         if (diffMonths >= 1) {
@@ -64,7 +64,7 @@
             return `bg-green-500 text-white dark:bg-green-600`
         }
 
-        return ``;
+        return "";
     }
 
     let visible = $state(true);
@@ -77,7 +77,7 @@
         visible = true;
     }
 
-    export function isVisible() : Boolean {
+    export function isVisible() : boolean {
         return visible;
     }
 </script>
@@ -161,7 +161,8 @@
                 </div>
                 {#if mod.Dependencies.length > 0}
                     <div class="col-span-2 mt-2">
-                        <p>Dependencies</p>
+                        <small>Dependencies</small>
+                        <br/>
                         {#each mod.Dependencies as dependency}
                             <Badge class="me-1">{dependency}</Badge>
                         {/each}
@@ -169,7 +170,8 @@
                 {/if}
                 {#if mod.Categories.length > 0}
                     <div class="col-span-2 mt-2">
-                        <p>Categories</p>
+                        <small>Categories</small>
+                        <br/>
                         {#each mod.Categories as category}
                             <Badge class="me-1">{category}</Badge>
                         {/each}

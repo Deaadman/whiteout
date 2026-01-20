@@ -1,17 +1,7 @@
 <script lang="ts">
     import * as Card from "$lib/components/ui/card/index.js";
-    import { Badge } from "$lib/components/ui/badge/index.js";
-    import DownloadIcon from "@lucide/svelte/icons/download"
-    import StarIcon from "@lucide/svelte/icons/star"
-    import HeartIcon from "@lucide/svelte/icons/heart"
-    import GitHubIcon from "@lucide/svelte/icons/github"
-    import RefreshCCWIcon from "@lucide/svelte/icons/refresh-ccw"
-    import BadgeAlertIcon from "@lucide/svelte/icons/badge-alert"
-    import * as Tooltip from "$lib/components/ui/tooltip/index.js";
-    import { buttonVariants } from "$lib/components/ui/button/index.js";
     import { Skeleton } from "$lib/components/ui/skeleton/index.js";
-    import {Button} from "$lib/components/ui/button";
-    import {AspectRatio} from "$lib/components/ui/aspect-ratio/index.js";
+    import { AspectRatio } from "$lib/components/ui/aspect-ratio/index.js";
 </script>
 
 <Card.Root>
