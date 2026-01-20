@@ -4,26 +4,56 @@
     import { Button } from "$lib/components/ui/button/index.js";
     import CircleQuestionMark from "@lucide/svelte/icons/circle-question-mark";
     import SiDiscord from "@icons-pack/svelte-simple-icons/icons/SiDiscord";
+    import {Badge} from "$lib/components/ui/badge/index.js";
+</script>
+
+<script lang="ts" module>
+
+    interface SiteData {
+        currentVersion: String,
+        lastBigPatch: String,
+        latestGameBreaking: String,
+        melonloaderVersion: String,
+        melonNightly: Boolean,
+        announcement: String,
+        lists: String[],
+        oldlists: String[],
+        overrides: String[]
+    }
+
+    const response = await fetch("https://raw.githubusercontent.com/TLD-Mods/ModLists/master/SiteData.json");
+    const json: SiteData = await response.json()
 </script>
 
 <div class="p-4 py-2">
     <Card.Root class="py-4">
         <Card.Content>
             <div class="grid grid-flow-col grid-cols-3 gap-4 items-center">
-                <div class="col-span-2 justify-self-start">
+                <div class="justify-self-start">
                     <a class="flex items-center" href="/">
                         <img class="invert dark:invert-0" src="src/lib/assets/favicon.svg" alt="The Long Dark Modding Logo" height="38" width="38"/>
-                        <h3 class="ms-4 scroll-m-20 text-2xl font-semibold tracking-tight max-sm:hidden">The Long Dark Modding</h3>
+                        <h3 class="ms-4 scroll-m-20 text-2xl font-semibold tracking-tight max-md:hidden">The Long Dark Modding</h3>
                     </a>
                 </div>
-                <div class="flex gap-1 justify-self-end">
-                    <Button variant="outline" size="icon" href="https://discord.gg/EhBWKRx" target="_blank">
-                        <SiDiscord />
+                <div class="flex gap-2 justify-center max-sm:col-span-3">
+                    <Button variant="outline" href="https://discord.gg/EhBWKRx" target="_blank">
+                        <SiDiscord /> Discord
                     </Button>
-                    <Button variant="outline" size="icon">
-                        <CircleQuestionMark />
+                    <Button variant="outline">
+                        <CircleQuestionMark /> Help
                     </Button>
-                    <ThemeSwitcher />
+                    <ThemeSwitcher/>
+                </div>
+                <div class="grid gap-1 justify-items-end justify-self-end max-sm:hidden">
+                    <Badge>
+                        The Long Dark Version: {json.currentVersion}
+                    </Badge>
+                    <Badge class="bg-yellow-500 text-white dark:bg-yellow-600">
+                        Latest Mod-Breaking: {json.latestGameBreaking}
+                    </Badge>
+                    <Badge>
+                        MelonLoader Version: {json.melonloaderVersion}
+                    </Badge>
                 </div>
             </div>
         </Card.Content>

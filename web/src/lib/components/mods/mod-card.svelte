@@ -6,6 +6,7 @@
     import HeartIcon from "@lucide/svelte/icons/heart"
     import GitHubIcon from "@lucide/svelte/icons/github"
     import RefreshCCWIcon from "@lucide/svelte/icons/refresh-ccw"
+    import BadgeAlertIcon from "@lucide/svelte/icons/badge-alert"
     import * as Tooltip from "$lib/components/ui/tooltip/index.js";
     import { buttonVariants } from "$lib/components/ui/button/index.js";
     import {Button} from "$lib/components/ui/button";
@@ -16,7 +17,7 @@
     const updatedDate = new Date(mod.Updated);
     const currentDate = new Date();
 
-    const diffTime= currentDate - updatedDate;
+    const diffTime = currentDate - updatedDate;
     const diffDays = diffTime / (1000 * 3600 * 24);
     const diffYears = diffDays / 365.2425;
     const diffMonths = diffDays / 30.44;
@@ -65,78 +66,117 @@
 
         return ``;
     }
+
+    let visible = $state(true);
+
+    export function hide() {
+        visible = false;
+    }
+
+    export function show() {
+        visible = true;
+    }
+
+    export function isVisible() : Boolean {
+        return visible;
+    }
 </script>
 
-<Card.Root>
-    <Card.Header>
-        <AspectRatio ratio={16 / 9}>
-            {#if mod.Images[0]}
-                <img src="{mod.Images[0]}" alt="{mod.DisplayName}" class="w-full h-full" />
-            {:else}
-                <img src="src/lib/assets/unavailable-dark.png" alt="{mod.DisplayName}" class="w-full h-full hidden dark:block" />
-                <img src="src/lib/assets/unavailable-light.png" alt="{mod.DisplayName}" class="w-full h-full block dark:hidden" />
-            {/if}
-        </AspectRatio>
-        <div class="grid grid-flow-col grid-cols-2">
-            <div class="mt-2">
-                <Card.Title>{mod.DisplayName}</Card.Title>
-                <Card.Description>by <a class="underline" href="{mod.AuthorUrl}" target="_blank">{mod.Author}</a></Card.Description>
+{#if visible}
+    <Card.Root>
+        <Card.Header>
+            <AspectRatio ratio={16 / 9}>
+                {#if mod.Images[0]}
+                    <img src="{mod.Images[0]}" alt="{mod.DisplayName}" class="w-full h-full" />
+                {:else}
+                    <img src="src/lib/assets/unavailable-dark.png" alt="{mod.DisplayName}" class="w-full h-full hidden dark:block" />
+                    <img src="src/lib/assets/unavailable-light.png" alt="{mod.DisplayName}" class="w-full h-full block dark:hidden" />
+                {/if}
+            </AspectRatio>
+            <div class="grid grid-flow-col grid-cols-2">
+                <div class="mt-2">
+                    <Card.Title>{mod.DisplayName}</Card.Title>
+                    <Card.Description>by <a class="underline" href="{mod.AuthorUrl}" target="_blank">{mod.Author}</a></Card.Description>
+                </div>
+                <div class="mt-2 justify-self-end text-end">
+                    <Card.Title>v{mod.Version}</Card.Title>
+                    <Card.Description>TLD v{mod.TestedOn.tld} / ML v{mod.TestedOn.ml}</Card.Description>
+                </div>
             </div>
-            <div class="mt-2 justify-self-end text-end">
-                <Card.Title>v{mod.Version}</Card.Title>
-                <Card.Description>TLD v{mod.TestedOn.tld} / ML v{mod.TestedOn.ml}</Card.Description>
-            </div>
-        </div>
-    </Card.Header>
-    <Card.Content class="h-10 overflow-auto">
-        <Card.Description>
-            {mod.Description}
-        </Card.Description>
-    </Card.Content>
-    <Card.Footer>
-        <div class="grid grid-flow-col grid-rows-3 w-full">
-            <div class="col-start-1 content-center">
-                <Button variant="outline" size="icon" href={mod.ModUrl} target="_blank">
-                    <GitHubIcon />
-                </Button>
-                <Button variant="outline" size="icon" href={mod.Download} target="_blank">
-                    <DownloadIcon />
-                </Button>
-                {#if mod.SupportUrl}
-                    <Button variant="outline" size="icon" href={mod.SupportUrl} target="_blank">
-                        <HeartIcon />
+        </Card.Header>
+        <Card.Content class="h-10 overflow-auto">
+            <Card.Description>
+                {mod.Description}
+            </Card.Description>
+        </Card.Content>
+        <Card.Footer>
+            <div class="grid grid-flow-col grid-rows-3 w-full">
+                <div class="col-start-1 content-center">
+                    <Button variant="outline" size="icon" href={mod.ModUrl} target="_blank">
+                        <GitHubIcon />
                     </Button>
+                    <Button variant="outline" size="icon" href={mod.Download} target="_blank">
+                        <DownloadIcon />
+                    </Button>
+                    {#if mod.SupportUrl}
+                        <Button variant="outline" size="icon" href={mod.SupportUrl} target="_blank">
+                            <HeartIcon />
+                        </Button>
+                    {/if}
+                </div>
+                <div class="grid gap-1 col-start-2 content-center justify-self-end justify-items-end">
+                    <Tooltip.Root>
+                        <Tooltip.Trigger>
+                            <Badge variant="secondary" class={dateDifferenceClass()}>
+                                <RefreshCCWIcon />
+                                {dateDifference()}
+                            </Badge>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>
+                            <p>{new Date(mod.Updated).toDateString()}</p>
+                        </Tooltip.Content>
+                    </Tooltip.Root>
+                    {#if mod.GameVersion.includes("tftft")}
+                        <Badge variant="secondary" href="https://www.thelongdark.com/expansion/" target="_blank" class="bg-blue-500 hover:bg-blue-400 text-white dark:bg-blue-600 dark:hover:bg-blue-500">
+                            <BadgeAlertIcon />
+                            TFTFT Required
+                        </Badge>
+                    {/if}
+                    <!--{#if mod.Status.beta}-->
+                    <!--    <Badge variant="secondary" class="bg-yellow-500 text-white dark:bg-yellow-600">-->
+                    <!--        <BadgeAlertIcon />-->
+                    <!--        Beta-->
+                    <!--    </Badge>-->
+                    <!--{/if}-->
+                    <!--{#if mod.Status.working}-->
+                    <!--    <Badge variant="secondary" class="bg-green-500 text-white dark:bg-green-600">-->
+                    <!--        <BadgeAlertIcon />-->
+                    <!--        Working-->
+                    <!--    </Badge>-->
+                    <!--{:else}-->
+                    <!--    <Badge variant="secondary" class="bg-red-500 text-white dark:bg-red-600">-->
+                    <!--        <BadgeAlertIcon />-->
+                    <!--        Not Working-->
+                    <!--    </Badge>-->
+                    <!--{/if}-->
+                </div>
+                {#if mod.Dependencies.length > 0}
+                    <div class="col-span-2 mt-2">
+                        <p>Dependencies</p>
+                        {#each mod.Dependencies as dependency}
+                            <Badge class="me-1">{dependency}</Badge>
+                        {/each}
+                    </div>
+                {/if}
+                {#if mod.Categories.length > 0}
+                    <div class="col-span-2 mt-2">
+                        <p>Categories</p>
+                        {#each mod.Categories as category}
+                            <Badge class="me-1">{category}</Badge>
+                        {/each}
+                    </div>
                 {/if}
             </div>
-            <div class="col-start-2 content-center justify-self-end">
-                <Tooltip.Root>
-                    <Tooltip.Trigger>
-                        <Badge variant="secondary" class={dateDifferenceClass()}>
-                            <RefreshCCWIcon />
-                            {dateDifference()}
-                        </Badge>
-                    </Tooltip.Trigger>
-                    <Tooltip.Content>
-                        <p>{new Date(mod.Updated).toDateString()}</p>
-                    </Tooltip.Content>
-                </Tooltip.Root>
-            </div>
-            {#if mod.Dependencies.length > 0}
-                <div class="col-span-2 mt-2">
-                    <p>Dependencies</p>
-                    {#each mod.Dependencies as dependency}
-                        <Badge class="me-1">{dependency}</Badge>
-                    {/each}
-                </div>
-            {/if}
-            {#if mod.Categories.length > 0}
-                <div class="col-span-2 mt-2">
-                    <p>Categories</p>
-                    {#each mod.Categories as category}
-                        <Badge class="me-1">{category}</Badge>
-                    {/each}
-                </div>
-            {/if}
-        </div>
-    </Card.Footer>
-</Card.Root>
+        </Card.Footer>
+    </Card.Root>
+{/if}

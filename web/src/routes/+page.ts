@@ -36,23 +36,19 @@ interface TestedOn {
 }
 
 interface Status {
-    Working: Boolean,
-    Beta: Boolean,
-    PatchNotes: String,
-    Notes: String,
-    Issues: String
+    working: Boolean,
+    beta: Boolean,
+    patchnotes: String,
+    notes: String,
+    issues: String
 }
 
 const apiUrl = '/tldmods/api.php?details&pp';
 export let _mods: Mod[] = [];
-export let _modsOnly: Mod[] = [];
-export let _pluginsOnly: Mod[] = [];
 
 export const load: PageLoad = async ({ fetch }) => {
     const res = await fetch(apiUrl);
     if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
 
     _mods = await res.json();
-    _modsOnly = _mods.filter((mod) => mod.Type === "mod");
-    _pluginsOnly = _mods.filter((mod) => mod.Type === "plugin");
 };

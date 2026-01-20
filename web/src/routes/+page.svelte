@@ -4,6 +4,8 @@
     import * as Select from "$lib/components/ui/select/index.js";
     import SearchIcon from "@lucide/svelte/icons/search"
     import ModCard from "$lib/components/mods/mod-card.svelte";
+    import type { FormEventHandler } from "svelte/elements";
+    import type {SvelteComponent} from "svelte";
 
     import {
         InputGroup,
@@ -12,26 +14,17 @@
     } from "$lib/components/ui/input-group"
 
     import {
-        _mods,
-        _modsOnly,
-        _pluginsOnly
+        _mods
     } from "./+page";
-    import type { FormEventHandler } from "svelte/elements";
-    import type {SvelteComponent} from "svelte";
 
-    let modCount: Number = _mods.length;
+    let modCount = _mods.length;
     let refs: SvelteComponent[] = [];
+    const url = new URL(window.location.href);
 
     const tabsOnChange = (value: string) => {
         switch (value) {
             case "all":
                 modCount = _mods.length;
-                break;
-            case "mods":
-                modCount = _modsOnly.length;
-                break;
-            case "plugins":
-                modCount = _pluginsOnly.length;
                 break;
             default:
                 modCount = _mods.length;
@@ -39,21 +32,35 @@
     }
 
     function searchOnChange(event: FormEventHandler<HTMLInputElement>) {
-        const searchValue = event.srcElement.value.toUpperCase();
+        const searchValue = event.srcElement.value;
         console.log(searchValue);
+
+
+        url.searchParams.set("q", searchValue);
+        history.pushState(null, ``, url);
 
         let i;
         for (i = 0; i < _mods.length; i++) {
-            if (_mods[i].DisplayName.toUpperCase().indexOf(searchValue) > -1) {
-                // console.log(refs[i]);
-                // refs[i].style.display = "";
+            if (_mods[i].DisplayName.toUpperCase().indexOf(searchValue.toUpperCase()) > -1) {
+                refs[i].show();
             } else {
-                // refs[i].style.display = "none";
+                refs[i].hide();
             }
         }
 
-        modCount = refs.length;
+        modCount = 0;
+
+        let j;
+        for (j = 0; j < _mods.length; j++) {
+            if (refs[j].isVisible()) {
+                modCount++;
+            }
+        }
     }
+
+    document.addEventListener("DOMContentLoaded", (event) => {
+        console.log(url.searchParams.get("q"));
+    });
 </script>
 
 <div>
@@ -97,7 +104,12 @@
                         <SearchIcon />
                     </InputGroupAddon>
                     <InputGroupAddon class="max-lg:hidden" align="inline-end">
-                        {modCount} results
+                        {modCount}
+                        {#if modCount > 1}
+                            results
+                        {:else}
+                            result
+                        {/if}
                     </InputGroupAddon>
                 </InputGroup>
             </div>
@@ -108,14 +120,14 @@
             {/each}
         </Tabs.Content>
         <Tabs.Content value="mods" class="grid grid-cols-3 max-sm:grid-cols-1 gap-4">
-            {#each _modsOnly as mod}
-                <ModCard mod="{mod}" />
-            {/each}
+            <!--{#each _modsOnly as mod}-->
+            <!--    <ModCard mod="{mod}" />-->
+            <!--{/each}-->
         </Tabs.Content>
         <Tabs.Content value="plugins" class="grid grid-cols-3 max-sm:grid-cols-1 gap-4">
-            {#each _pluginsOnly as mod}
-                <ModCard mod="{mod}" />
-            {/each}
+            <!--{#each _pluginsOnly as mod}-->
+            <!--    <ModCard mod="{mod}" />-->
+            <!--{/each}-->
         </Tabs.Content>
     </Tabs.Root>
 </div>
