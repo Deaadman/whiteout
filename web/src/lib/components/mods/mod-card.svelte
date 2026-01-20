@@ -12,6 +12,59 @@
     import {AspectRatio} from "$lib/components/ui/aspect-ratio/index.js";
 
     let { mod } = $props();
+
+    const updatedDate = new Date(mod.Updated);
+    const currentDate = new Date();
+
+    const diffTime= currentDate - updatedDate;
+    const diffDays = diffTime / (1000 * 3600 * 24);
+    const diffYears = diffDays / 365.2425;
+    const diffMonths = diffDays / 30.44;
+    const diffWeeks = diffDays / 7;
+
+    function dateDifference() : String {
+        if (diffYears >= 2) {
+            return `Updated ${Math.floor(diffYears)} years ago`
+        } else if (diffYears >= 1) {
+            return `Updated last year`;
+        }
+
+        if (diffMonths >= 2) {
+            return `Updated ${Math.floor(diffMonths)} months ago`
+        } else if (diffMonths >= 1) {
+            return `Updated last month`;
+        }
+
+        if (diffWeeks >= 2) {
+            return `Updated ${Math.floor(diffWeeks)} weeks ago`;
+        } else if (diffWeeks >= 1) {
+            return `Updated last week`;
+        }
+
+        if (diffDays >= 2) {
+            return `Updated ${Math.floor(diffDays)} days ago`;
+        } else if (diffDays >= 1) {
+            return `Updated yesterday`;
+        } else {
+            return `Updated today`;
+        }
+    }
+
+    function dateDifferenceClass() : String {
+        if (diffYears >= 1) {
+            return `bg-red-500 text-white dark:bg-red-600`
+        }
+
+        if (diffMonths >= 1) {
+            return `bg-yellow-500 text-white dark:bg-yellow-600`
+        }
+
+        if (diffDays < 30) {
+            return `bg-green-500 text-white dark:bg-green-600`
+        }
+
+        return ``;
+    }
 </script>
 
 <Card.Root>
@@ -58,14 +111,13 @@
             <div class="col-start-2 content-center justify-self-end">
                 <Tooltip.Root>
                     <Tooltip.Trigger>
-                        <Badge variant="secondary" class="bg-blue-500 text-white dark:bg-blue-600">
+                        <Badge variant="secondary" class={dateDifferenceClass()}>
                             <RefreshCCWIcon />
-                            Updated Last Month
+                            {dateDifference()}
                         </Badge>
                     </Tooltip.Trigger>
                     <Tooltip.Content>
-                        <p>{mod.Updated}</p>
-<!--                        <p>17 January 2026, at 19:32</p>-->
+                        <p>{new Date(mod.Updated).toDateString()}</p>
                     </Tooltip.Content>
                 </Tooltip.Root>
             </div>
