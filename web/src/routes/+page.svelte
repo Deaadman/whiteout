@@ -30,9 +30,15 @@
     }
 
     function updateSearch(value: string) {
+
         const url = new URL(window.location.href);
-        url.searchParams.set("q", value);
-        history.pushState(null, ``, url);
+        if (value !== "") {
+            url.searchParams.set("q", value);
+            history.pushState(null, "", url);
+        } else {
+            url.searchParams.delete("q");
+            history.pushState(null, "", url);
+        }
 
         let i;
         for (i = 0; i < _mods.length; i++) {
@@ -60,7 +66,7 @@
         }
 
         const url = new URL(window.location.href);
-        const query = url.searchParams.get("q") || ``;
+        const query = url.searchParams.get("q") || "";
         searchInput.value = query;
         updateSearch(query);
     });
