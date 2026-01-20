@@ -4,6 +4,7 @@
     import * as Select from "$lib/components/ui/select/index.js";
     import SearchIcon from "@lucide/svelte/icons/search"
     import ModCard from "$lib/components/mods/mod-card.svelte";
+    import ModCardSkeleton from "$lib/components/mods/mod-card-skeleton.svelte";
     import type {FormEventHandler} from "svelte/elements";
     import type {SvelteComponent} from "svelte";
     import {onMount} from 'svelte';
@@ -124,9 +125,15 @@
             </div>
         </div>
         <Tabs.Content value="all" class="grid grid-cols-5 max-[1920px]:grid-cols-4 max-2xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-4">
-            {#each _mods as mod, i}
-                <ModCard bind:this={refs[i]} mod="{mod}" />
-            {/each}
+            {#if _mods.length === 0}
+                {#each Array.from({length: 20}) as _}
+                    <ModCardSkeleton />
+                {/each}
+            {:else}
+                {#each _mods as mod, i}
+                    <ModCard bind:this={refs[i]} mod="{mod}" />
+                {/each}
+            {/if}
         </Tabs.Content>
         <Tabs.Content value="mods" class="grid grid-cols-3 max-sm:grid-cols-1 gap-4">
             <!--{#each _modsOnly as mod}-->
